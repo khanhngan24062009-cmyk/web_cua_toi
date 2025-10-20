@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Đồng Hồ Đếm Ngược - Cây Nảy Mầm</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom right, #e0f7fa, #ffffff);
+      margin: 0;
+      padding: 0;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      color: #2e7d32;
+      margin-bottom: 10px;
+    }
+
+    .timer {
+      font-size: 3.5rem;
+      margin: 25px 0;
+      font-weight: bold;
+      color: #1b5e20;
+    }
+
+    .buttons {
+      margin: 10px 0 25px 0;
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 1.2rem;
+      margin: 8px;
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+      transition: background 0.3s ease, transform 0.1s ease;
+    }
+
+    button:active {
+      transform: scale(0.97);
+    }
+
+    #startBtn {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    #startBtn:hover {
+      background-color: #45a049;
+    }
+
+    #endBtn {
+      background-color: #f44336;
+      color: white;
+    }
+
+    #endBtn:hover {
+      background-color: #d32f2f;
+    }
+
+    .result {
+      text-align: center;
+      margin-top: 10px;
+      display: block;
+      min-height: 300px;
+    }
+
+    .result p {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    .result img {
+      width: 400px;
+      display: none;
+      margin: 0 auto;
+      transition: opacity 1s ease, transform 0.6s ease;
+      opacity: 0;
+      max-width: 90%;
+      height: auto;
+      border-radius: 8px;
+      object-fit: contain;
+    }
+
+    footer {
+      background: #ffffffcc;
+      border-top: 3px solid #a5d6a7;
+      padding: 25px 40px;
+      text-align: justify;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #333;
+      box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    footer h2 {
+      color: #1b5e20;
+      text-align: center;
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+    }
+
+    footer p {
+      margin: 0 auto;
+      max-width: 1000px;
+    }
+
+    /* Responsive design cho điện thoại */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .timer {
+        font-size: 2.8rem;
+      }
+
+      button {
+        padding: 10px 20px;
+        font-size: 1rem;
+      }
+
+      .result p {
+        font-size: 1.3rem;
+      }
+
+      .result img {
+        width: 90%;
+        max-width: 320px;
+      }
+
+      footer {
+        padding: 18px 20px;
+        font-size: 15px;
+      }
+
+      footer h2 {
+        font-size: 1.1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .timer {
+        font-size: 2.2rem;
+      }
+
+      button {
+        padding: 8px 16px;
+        font-size: 0.95rem;
+      }
+
+      .result img {
+        max-width: 280px;
+      }
+
+      footer {
+        font-size: 14px;
+        padding: 16px;
+      }
+
+      footer h2 {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>🌱 Thử Thách Cây Nảy Mầm 🌳</h1>
+
+    <div class="timer" id="timer">00:25</div>
+
+    <div class="buttons">
+      <button id="startBtn">BẮT ĐẦU</button>
+      <button id="endBtn" disabled>KẾT THÚC</button>
+    </div>
+
+    <div class="result" id="result">
+      <p id="message"></p>
+      <img id="plantImage" src="" alt="Kết quả" />
+    </div>
+  </main>
+
+  <footer>
+    <h2>Đánh Tan Màn Sương: Nâng Cao Tập Trung Học Tập Cho Học Sinh, Sinh Viên</h2>
+    <p>Hội chứng "brain fog" hay tình trạng mất tập trung kéo dài đang trở thành một thách thức nghiêm trọng đối với học sinh, sinh viên hiện nay. Không chỉ là sự lơ đãng nhất thời, đây là tình trạng đầu óc mơ hồ, khó duy trì chú ý do áp lực học tập, thiếu ngủ và lối sống không lành mạnh. Hậu quả của nó rất lớn: từ kết quả học tập sa sút, ảnh hưởng đến khả năng tư duy, giải quyết vấn đề, cho đến các vấn đề sức khỏe tinh thần như lo âu, trầm cảm. Tuy nhiên, bạn hoàn toàn có thể thay đổi! Khả năng tập trung không phải là tài năng bẩm sinh mà là một kỹ năng có thể rèn luyện. "Sự tập trung là khởi đầu của mọi thành công lớn." Hãy bắt đầu từ những thay đổi nhỏ, kiên trì mỗi ngày: thiết lập mục tiêu rõ ràng, loại bỏ phiền nhiễu, và dành thời gian nghỉ ngơi hợp lý. Mỗi nỗ lực duy trì sự chú ý là bạn đang xây dựng "cơ bắp" cho não bộ. Đừng nản lòng trước thất bại, vì "hạnh phúc là chìa khóa của thành công." Bằng sự nỗ lực và thực hành, bạn sẽ vượt qua "màn sương" và chinh phục mục tiêu học tập của mình.</p>
+  </footer>
+
+  <script>
+  const startBtn = document.getElementById("startBtn");
+  const endBtn = document.getElementById("endBtn");
+  const timerEl = document.getElementById("timer");
+  const resultEl = document.getElementById("result");
+  const messageEl = document.getElementById("message");
+  const plantImage = document.getElementById("plantImage");
+
+  let countdown;
+  let timeLeft = 1500;
+  let gameRunning = false;
+  let stage = 0;
+
+  const images = [
+    "hình ảnh hạt đậu giai đoạn 1.png",
+    "hình hạt đậu giai đoạn 2.png",
+    "hình ảnh hạt đậu giai đoạn 3.png",
+    "hình ảnh hạt đậu giai đoạn 4.png",
+    "hình ảnh hạt đậu giai đoạn 5.png"
+  ];
+
+  const messages = [
+    "🌱 Hạt đậu chưa nảy mầm",
+    "🍃 Cố lên, đậu đã mọc mầm rồi",
+    "🌿 Cây non bắt đầu khỏe mạnh",
+    "🌳 Cây dần trở nên tươi tốt",
+    "🌳 Cây đã trưởng thành!"
+  ];
+
+  function updateTimerDisplay() {
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+    timerEl.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+  }
+
+  function fadeInImage(src, message) {
+    resultEl.style.display = "block";
+    messageEl.textContent = message;
+    plantImage.src = src;
+    plantImage.style.display = "block";
+    plantImage.style.opacity = 0;
+    plantImage.style.transform = "scale(0.8)";
+    setTimeout(() => {
+      plantImage.style.opacity = 1;
+      plantImage.style.transform = "scale(1)";
+    }, 100);
+  }
+
+  startBtn.addEventListener("click", () => {
+    timeLeft = 1500;
+    stage = 0;
+    updateTimerDisplay();
+    messageEl.textContent = "";
+    plantImage.style.display = "none";
+    timerEl.style.color = "#2e7d32";
+
+    gameRunning = true;
+    startBtn.disabled = true;
+    endBtn.disabled = false;
+
+    fadeInImage("hình nhân vật gieo hạt giống.png", "👩‍🌾 Người nông dân đang gieo hạt...");
+
+    countdown = setInterval(() => {
+      timeLeft--;
+      updateTimerDisplay();
+
+      if (timeLeft === 1200) {
+        stage = 1;
+        fadeInImage(images[stage - 1], messages[stage - 1]);
+      }
+
+      if (timeLeft % 300 === 0 && timeLeft < 1200 && timeLeft > 0) {
+        stage++;
+        fadeInImage(images[stage - 1], messages[stage - 1]);
+      }
+
+      if (timeLeft <= 0) {
+        clearInterval(countdown);
+        gameRunning = false;
+        startBtn.disabled = false;
+        endBtn.disabled = true;
+        fadeInImage(images[images.length - 1], "🎉 Hoàn thành! Cây đã trưởng thành!");
+      }
+    }, 1000);
+  });
+
+  endBtn.addEventListener("click", () => {
+    if (!gameRunning) return;
+    clearInterval(countdown);
+    gameRunning = false;
+    startBtn.disabled = false;
+    endBtn.disabled = true;
+    fadeInImage("hình ảnh đặc biệt.png", "❌ Bạn đã thua! Cây đã héo khô...");
+  });
+
+  updateTimerDisplay();
+  </script>
+</body>
+</html>
